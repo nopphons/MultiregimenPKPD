@@ -1,4 +1,4 @@
-# In silico stochastic process efficacy predictions on gentamicin treatment of neonatal E. Coli infections
+# ‘The codes used for a submitted paper “In Silico Stochastic Process Efficacy Predictions On Gentamicin Treatment Of Neonatal E. Coli Infections.” This submitted paper extends the paper “Radivoyevitch T, Siranart N, Hlatky L, Sachs R (2015) “Stochastic Process Pharmacodynamics: Dose Timing in Neonatal Gentamicin Therapy as an Example. AAPS Journal 17 (2):447-456. doi:10.1208/s12248-014-9715-3.”’
 
 forExploratoryCalculations.R is independent of all the other scripts and none of them depend on it. It is included mainly for its very detailed commenting (on model, parameters, variables, functions, etc). It includes copyright and credit information. It is sometimes still used for preliminary estimates and for making figures.
 

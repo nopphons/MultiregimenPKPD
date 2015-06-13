@@ -1,4 +1,4 @@
-#Written & commented by N. Siranat 04/14; tested, modified and further commented by R.Sachs, Y.Chen & T.Radivoyevitch.
+#Written & commented by N. Siranart 04/14; tested, modified and further commented by R.Sachs, Y.Chen & T.Radivoyevitch.
 #Distributed under the GNU GPLv3; Contact Sachs. sachs@math.berkeley.edu., for .txt or.R versions.
 #This script uses methods similar to (Nielsen et al 2009 Clin Pharmacokinet 48:253) for neonatal gentamicin dosing and uses
 #corresponding PK/PD calculations in Mohamed et al. 2012, Antimicrob Agents Chemother 56:179. It adds stochastic calculations.
