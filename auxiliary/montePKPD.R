@@ -17,7 +17,7 @@ t1 = max(which(cells <50)) #the point where the number of cells goes back up to 
  
 Ntrvl<-1000 #number of time intervals per hour; 100 might work
 intrvl=1.0/Ntrvl #time in each interval
-M=3# number of sample paths (Monte-Carlo runs). Larger M gives higher accuracy
+M=3# number of sample paths (Monte-Carlo runs). Larger M~10,000 gives higher accuracy
 time = t1 #time at the ending point
 y=array(0,dim=c(M,time))#used to store the value for each path at each time
 
@@ -44,7 +44,7 @@ for (i in 1:M){if(abs(100*i/M -round(100*i/M)) < 0.5/M) print(i)
   
 }
 
-#plot the graph of the number of cells by calculating the mean of all paths
+#plot the graph of the average number of cells by calculating the mean of all paths
   
 plot(colMeans(y),type="l",ylim = c(0,50))
 #the graph of the number of cells (deterministically)

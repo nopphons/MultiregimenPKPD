@@ -1,5 +1,5 @@
-#This script is almost the same as PKPD.R, whose comments should be consulted.
-#Howeve, we consider a virtual baby which has only about 50 CFU at t=0 and only give 1, very small dose.
+#This script is almost the same as forExploratoryCalculations.R, whose comments should be consulted.
+#However, we consider a virtual neonate which has only about 50 bacteria at t=0 and only give 1, very small, dose.
 #These values give an E_F ~40-60% and facilitate checking this script with a Monte Carlo script.
 ###################################################################
 
@@ -32,7 +32,7 @@ parameters <-c(thetaVC = 0.406,V1=0.305, V2=4.55, thetaCL =0.01, Q1 = 0.0930 , Q
                GAVc= -0.0114, thetaPNACL=0.517, Kgrowth= 2,Kdeath=0.179, Bmax=8.26e8, BP =2.09e6, gamma = 1,
                Emax0= 51,EC500= 9.85, AR50= 0.113,Kon=0.0426,Koff=0.0139, infect = 0.04029,
                doses = list(dose), times = list(time), delta = 0.08)#infect, CFU/ml, is chosen so that
-               # the total number of CFU in the central compartment is initially ~50 instead of ~10^9
+               # the total number of bacteria in the central compartment is initially ~50 instead of ~10^9
 
 conccurve = function(dose, interval,GA){
   #concs=with(as.list(parameters),dose/(thetaVC*(1+GAVc*(GA-GAmed))))
