@@ -30,8 +30,8 @@ weights=(rnorm(number,mu,sigm))*0.001#defines a virtual population of number neo
 
 ####################Preprocessing#########################
 dose_input = 'miley_input_56_doses.csv'#loads the chosen dose cycles
-table = outputMultiregimen(dose_input, 'initializingTable.csv', ginger)
-#table = read.csv('miley_output_56_doses.csv')# used as initialization; will be overwritten by script below
+#table = outputMultiregimen(dose_input, 'initializingTable.csv', miley)
+table = read.csv('initializingTable.csv')# used as initialization; will be overwritten by script below
 l = nrow(table)
 E40 = as.double(table[1:l, "E40"])#E_F for the prototypical GA 40 wk female neonate and all 50 dose cycles
 rank = order(E40)# order the 50 rows by E_F
@@ -74,7 +74,7 @@ plot(i_sim[rank],E40[rank], type = 'p', xlab = 'B=b1*d1+b2*d2+b3*d3', ylab = 'E4
 legend("bottomright", legend = c('E40','E40_predicted'), col = c('black','red'), lty=1)
 curve(E40_func, min(i_sim),max(i_sim),add=TRUE, col = 'red') #plot the curve of the predicted prob E_F
 correlation = cor(E40_p, E40)#Pearson correlation applied to non-linear curve.
-table[,'B=b1d1+b2d2'] = i_sim #add B to the table. Comment out following line to retain 'miley_output_50_doses.csv'
+table[,'B=b1d1+b2d2+b3d3'] = i_sim #add B to the table. Comment out following line to retain 'miley_output_50_doses.csv'
 write.csv(table, 'miley_output_56_doses.csv')
 
 #########################SIMULATION###########################
