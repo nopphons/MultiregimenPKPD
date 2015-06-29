@@ -8,6 +8,6 @@ The three main scripts are the following.
    3) correlation.R - This is the main code. It depends on 1) and 2) above, and on two input files: a dosing scheme and an initialization table. It calls everything it needs. It outputs everything we need, as decribed in comments to the script.
 
 The following .csv files are included
-   1) miley_input_50doses.csv - 50 input dosing schemes used for the prototypical GA= 40 wk neonate.
-   2) initializingTable.csv - This is used as an intialization. It contains the results using 50 dosing schemes from the input above applied to miley (GA = 40 with standard weight). This can be regenerated using outputMultiregimen.R
-   3) miley_output_50doses.csv - an example of a table output by correlation.R 
+   1) miley_input_56_doses.csv - 56 input dosing schemes used for the prototypical GA= 40 wk neonate.
+   2) initializingTable.csv - This is used as an intialization. It contains the results using 56 dosing schemes from the input above applied to miley (GA = 40 with standard weight). This can be regenerated using outputMultiregimen.R
+   3) miley_output_56_doses.csv - an example of a table output by correlation.R 

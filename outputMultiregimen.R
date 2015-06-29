@@ -50,7 +50,7 @@ outputMultiregimen = function(filename, output, weight){
     #adding other info we want to the row
     table[nrow(table)+1,] = cure_indices #add the row to the table
   }
-  #write.csv(table, output)
+  write.csv(table, output)
   return(table)
 }
 #outputMultiregimen("inputforMulti.csv", "outputMultiregimen_25.csv")
