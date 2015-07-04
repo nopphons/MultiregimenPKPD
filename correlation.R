@@ -31,10 +31,10 @@ weights=(rnorm(number,mu,sigm))*0.001#defines a virtual population of number neo
 ####################Preprocessing#########################
 dose_input = 'miley_input_56_doses.csv'#loads the chosen dose cycles
 #table = outputMultiregimen(dose_input, 'initializingTable.csv', miley)
-table = read.csv('initializingTable.csv')# used as initialization; will be overwritten by script below
+table = read.csv('initializingTable.csv')# used as initialization;
 l = nrow(table)
-E40 = as.double(table[1:l, "E40"])#E_F for the prototypical GA 40 wk female neonate and all 50 dose cycles
-rank = order(E40)# order the 50 rows by E_F
+E40 = as.double(table[1:l, "E40"])#E_F for the prototypical GA 40 wk female neonate and all 56 dose cycles
+rank = order(E40)# order the 56 rows by E_F
 dose_s = as.character(unlist(table[1:l, "Doses"])) #get a vector of doses.
 dose_c = paste('c(',dose_s,')',sep='') #make all the doses to be vectors in string
 dose_vec = sapply(dose_c,function(x) parse(text=x)) #change from string to expression
@@ -54,33 +54,31 @@ rrho <- function(coeff) {
 }
 #We used simulated annealing to optimize parameters of the Hill function
 global.min = 0; tol = 0.0001; lower = rep(0,4); upper = c(1,1,1,20)
-## during simulated annealing, do that and simplify the following. However the following works
 out <- GenSA(par = c(0.5,0.5,0.5,10), lower = lower, upper = upper, fn = rrho,
              control=list(threshold.stop=global.min+tol,verbose=TRUE))
 result = out[c("value","par","counts")] #result from simulated annealing
-boncoeff = result$par #optimal coefficients, but renormalization is needed due to parameter redundancy 
-#renormalized result for GA=40 on 5/25/2015: boncoeff[1]/boncoeff[3]=0.2606252, boncoeff[2]/boncoeff[3]=0.005040724, boncoeff[4]=9.871
+boncoeff = result$par #optimal coefficients
 i_sim = boncoeff[1]*dose1+ boncoeff[2]*dose2+boncoeff[3]*dose3 #B for the Hill (i.e. Fisk) function 1/[1+(1/B)^b], where the shape parameter b=boncoeff[4]
 E40_p = pfisk(i_sim,1,boncoeff[4])  #the predicted probability E40=E_F
 
-#This is the function that is used to predict the probability given the value B for the hill.
+#This is the function that is used to predict the probability given the value B.
 E40_func <- function(B){
-  pfisk(B,1,boncoeff[4])
+  pfisk(B,1,boncoeff[4]) pfisk(B,1,boncoeff[4]) #scale parameter set equal to 1 without essential loss of generality. Boncoeff[4]=shape parameter=sigmoidicity index
 }
 
 #for the protoypical neonate, plot the virtual data points and the optimized Hill function
 rank = order(i_sim) #get the order of i_sim to generate the plot
-plot(i_sim[rank],E40[rank], type = 'p', xlab = 'B=b1*d1+b2*d2+b3*d3', ylab = 'E40')# to properly renormalize, x-axis labels must be divided by 80.5
+plot(i_sim[rank],E40[rank], type = 'p', xlab = 'B=b1*d1+b2*d2+b3*d3', ylab = 'E40')
 legend("bottomright", legend = c('E40','E40_predicted'), col = c('black','red'), lty=1)
-curve(E40_func, min(i_sim),max(i_sim),add=TRUE, col = 'red') #plot the curve of the predicted prob E_F
+curve(E40_func, min(i_sim),max(i_sim),add=TRUE, col = 'red') #plot the curve of the predicted probability E_F
 correlation = cor(E40_p, E40)#Pearson correlation applied to non-linear curve.
 table[,'B=b1d1+b2d2+b3d3'] = i_sim #add B to the table. Comment out following line to retain 'miley_output_50_doses.csv'
 write.csv(table, 'miley_output_56_doses.csv')
 
 #########################SIMULATION###########################
 #We consider neonates with the same GA but different weights. For each such neonate we compare the Hill function,
-#with the same parameters as above to the E_F values calculated with the complex, biologically motivated model.
-#Using 50 comparisons we comput Pearson's r. Repeating for the other 99 neonates gives a distribution, which
+#with the same parameters as above, to the E_F values calculated with the complex, biologically motivated model.
+#Using 56 comparisons we comput Pearson's r. Repeating for the other 99 neonates gives a distribution, which
 #we plot as a histogram.
 rho=c(); #Empty lists to store the correlation of each neonate
 for(j in 1: length(weights)){
@@ -93,15 +91,3 @@ for(j in 1: length(weights)){
 }
 distribution = array(rho) 
 hist(rho, breaks = 40, main="Histogram of Correlation") #plot the histogram of correlations
-
-### Kolmogorov-Smirnov Test (may be biased; see supplement to Siranart et. al. for more details) ###
-set.seed(1234567)
-ks.pval.exact = ks.test(jitter(E40), jitter(E40_p))$p.value
-### The "jitter" function was used to add a little bit of random noise to E40 and E40_p.
-### Since there are duplicate values in E40 and E40_p, the use of the "jitter" function is
-### used to remove duplicate values, which would otherwise prevent the computation of exact
-### p-value for the Kolmogorov-Smirnov Test.
-
-ks.pval.approx = ks.test(E40, E40_p)$p.value
-### Alternatively, an approximate p-value can be found for the Kolmogorov-Smirnov Test even if
-### E40 and E40_p contain duplicate values.
