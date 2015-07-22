@@ -1,4 +1,3 @@
-#setwd("~/Desktop/urapsachs/updatedCodes")
 #This script depends on outputPKPD.R, whose comments apply also to this script.
 #Input is a list of many dosing regimens, not just one regimen as for outputPKPD.R.
 #Output is a data frame, for all regimens input, passed to correlation.R. 
@@ -53,5 +52,4 @@ outputMultiregimen = function(filename, output, weight){
   write.csv(table, output)
   return(table)
 }
-#outputMultiregimen("inputforMulti.csv", "outputMultiregimen_25.csv")
 
