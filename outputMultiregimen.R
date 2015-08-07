@@ -44,12 +44,14 @@ outputMultiregimen = function(filename, output, weight){
     conc = array(unlist(cure(dose,interval,GA)[2])) #concentration
     cure_prob = cure_vec[7500]
     if(length(cure_vec) < 7500) cure_prob = cure_vec[length(cure_vec)]
-    cure_indices = c(cure_indices,round(cure_prob,3)
-                     ,round(conc[c(8,1199,1208, 2399,2408,3599,3608,4799,4808,5999,6008,7199,7208)],3))
+    cure_indices = c(cure_indices,round(cure_prob,4)
+                     ,round(conc[c(8,1199,1208, 2399,2408,3599,3608,4799,4808,5999,6008,7199,7208)],4))
     #adding other info we want to the row
     table[nrow(table)+1,] = cure_indices #add the row to the table
   }
   write.csv(table, output)
   return(table)
 }
-
+#Example of how to use
+#input = 'input_dose.csv'
+#table = outputMultiregimen(input, 'output_dose.csv', 3.5)
