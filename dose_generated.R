@@ -26,8 +26,8 @@ for(i in 1:length(dose1)){ #for each dose in dose_input
   } 
 }
 #write tables to csv files
-write.csv(table, 'input_825_doses.csv', row.names=FALSE)
-write.csv(sort_table, 'front_input_825_doses.csv', row.names=FALSE)
+write.csv(table, 'csv_files/input_825_doses.csv', row.names=FALSE)
+write.csv(sort_table, 'csv_files/front_input_825_doses.csv', row.names=FALSE)
 
 
 
